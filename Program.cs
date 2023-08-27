@@ -5,18 +5,20 @@
     
     private static void Main()
     {
+        again:
         Console.WriteLine("Choose mode: 1.Get size of folder; 2. Get size of files and folders inside certain folder;");
         
         var mode = Console.ReadKey();
         Console.WriteLine("");
         
-        again:
         if (mode.Key == ConsoleKey.D1)
         {
+            Console.Write("Type in the path to the folder : ");
             var path = Console.ReadLine();
             Console.WriteLine($"{DateTime.Now.Hour}h:{DateTime.Now.Minute}m:{DateTime.Now.Second}s:{DateTime.Now.Millisecond}ms");
             Console.WriteLine($"{CountFolderSize(path!) / 1048576}mb");
             Console.WriteLine($"{DateTime.Now.Hour}h:{DateTime.Now.Minute}m:{DateTime.Now.Second}s:{DateTime.Now.Millisecond}ms");
+            goto again;
         } 
         else if (mode.Key == ConsoleKey.D2)
         {
@@ -78,7 +80,7 @@
         }
         catch (UnauthorizedAccessException)
         {
-            Console.WriteLine("unauthorized access exception! Skip");
+            Console.WriteLine($"unauthorized access exception!({directoryInfo.FullName}) Skip");
         }
 
         // Count size of subdirectories
@@ -92,7 +94,7 @@
         }
         catch (UnauthorizedAccessException)
         {
-            Console.WriteLine("unauthorized access exception! Skip");
+            Console.WriteLine($"unauthorized access exception!({directoryInfo.FullName}) Skip");
         }
 
         return size;
